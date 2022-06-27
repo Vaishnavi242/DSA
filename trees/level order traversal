@@ -1,0 +1,45 @@
+     1
+    / \
+   2   3
+  / \ / \
+  4 5 6 7
+ 
+ traverse the tree level wise
+level order traversal: 1 2 3 4 5 6 7
+
+APPROACH
+->take a queue push the root
+->for each level find the size of the queue and iterate 
+->check for the left and right child of the node
+->if present push in to the queue
+->repeate until the queue is empty
+
+CODE:
+ vector<vector<int>> levelOrder(TreeNode* root) {
+       vector<vector<int>> res;
+        if(root==NULL)
+            return res;
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.empty())
+        {
+            int n=q.size();
+            vector<int> v;
+            for(int i=0;i<n;i++)
+            {
+                TreeNode* node=q.front();
+                q.pop();
+                if(node->left!=NULL)
+                {
+                    q.push(node->left);
+                }
+                if(node->right!=NULL)
+                {
+                    q.push(node->right);
+                }
+                v.push_back(node->val);
+            }
+            res.push_back(v);
+        }
+        return res;
+    }
