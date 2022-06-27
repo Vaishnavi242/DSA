@@ -1,3 +1,33 @@
 inorder traversal follows 
 left root right
-  
+          1
+         / \
+        2   3
+       / \ / \
+       4 5 6 7 
+inorder travesal: 4 2 5 6 3 7 1
+
+APPROACH:
+->take queue push the node traverse till the left and push the child nodes in to queue
+->once the node becomes null print and move to right
+->repeat untill the node becomes null or queue becomes empty
+
+CODE:
+ vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> s;
+        vector<int> v;
+        TreeNode* node=root;
+        while(node!=NULL || !s.empty())
+        {
+            while(node!=NULL)
+            {
+                s.push(node);
+                node=node->left;
+            }
+            node=s.top();
+            v.push_back(node->val);
+            s.pop();
+            node=node->right; 
+        }
+        return v;
+    }
