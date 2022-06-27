@@ -5,7 +5,7 @@ left root right
         2   3
        / \ / \
        4 5 6 7 
-inorder travesal: 4 2 5 6 3 7 1
+inorder travesal: 4 2 5 1 6 3 7 
 
 APPROACH:
 ->take stack push the node traverse till the left and push the child nodes in to stack
