@@ -1,0 +1,39 @@
+preorder traversal follows
+root left right
+          1
+         / \
+        2   3
+       / \ / \
+       4 5 6 7
+first print root then left and then right
+
+pre order traversal: 1 2 4 5 3 6 7
+
+APPROACH:
+->take stack push the root
+->take the node as the top of the stack
+->print the node
+->check for the right child if present push in to the stack 
+->check for the left child if present push in to the stack
+->repeat the process till the stack is empty
+
+CODE:
+ vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if(root==NULL)
+            return res;
+        stack<TreeNode*> s;
+        s.push(root);
+        while(!s.empty())
+        {
+            TreeNode* node=s.top();
+            s.pop();
+            if(node->right!=NULL)
+                s.push(node->right);
+            if(node->left!=NULL)
+                s.push(node->left);
+            res.push_back(node->val);
+            
+        }
+        return res;
+    }
