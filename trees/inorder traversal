@@ -8,9 +8,9 @@ left root right
 inorder travesal: 4 2 5 6 3 7 1
 
 APPROACH:
-->take queue push the node traverse till the left and push the child nodes in to queue
+->take stack push the node traverse till the left and push the child nodes in to stack
 ->once the node becomes null print and move to right
-->repeat untill the node becomes null or queue becomes empty
+->repeat untill the node becomes null or stack becomes empty
 
 CODE:
  vector<int> inorderTraversal(TreeNode* root) {
