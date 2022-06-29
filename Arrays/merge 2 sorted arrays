@@ -1,0 +1,115 @@
+You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
+Example 1:
+Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+
+Example 2:
+Input: nums1 = [1], m = 1, nums2 = [], n = 0
+Output: [1]
+Explanation: The arrays we are merging are [1] and [].
+The result of the merge is [1].
+
+APPROACH 1:
+using merge sort
+->take a vector to store the resultant merged array
+->iterate both the arrays if the element int 1st array is less than 2nd array push 1st array element  into resultant
+->else push 2nd array element into resultant
+->there might be some elements left in the arrays push the remaining elements into resultant
+->now assing the resultant vector to the 1st array
+
+CODE:
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        vector<int> res;
+        int i=0,j=0;
+        while(i<m && j<n)
+        {
+            if(nums1[i]<nums2[j])
+            {
+                res.push_back(nums1[i]);
+                i++;
+            }
+            else{
+                res.push_back(nums2[j]);
+                j++;
+            }
+        }
+        while(i<m)
+        {
+             res.push_back(nums1[i]);
+                i++;
+        } 
+        while(j<n)
+        {
+             res.push_back(nums2[j]);
+                j++;
+        }
+        for(int i=0;i<res.size();i++)
+        {
+            nums1[i]=res[i];
+        }
+    }
+Time complexity:o(n)
+space complexity:o(n)
+
+APPROACH 2:
+Modification of before approach
+->iterate from the back side of the array
+->asing elements in the 1st array from back
+->if the element in the 2nd array is greater than 1st array then assing it to 1st array
+->else assing 1st array element
+example:nums1=[1,2,3,0,0,0] m=3
+nums2=[2,5,6] n=3
+now i=m-1=2,j=n-1=2
+k=nums1.size()-1=5
+nums2[2]>nums1[2] so nums1[5]=5
+nums2[1]>nums1[2] so nums1[4]=4
+nums1[2]>nums2[0] so nums1[3]=3
+nums2[0]>num1[0] so nums1[2]=2
+elements in nums2 are completed so the resulatant nums1=[1,2,2,3,5,6]
+
+CODE:
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    int i=m-1,j=n-1;
+    int k=m+n-1;
+    while(i>=0 && j>=0)
+    {
+        if(nums2[j]>nums1[i])
+        {
+          nums1[k]=nums2[j];
+            j--;
+        }
+        else{
+            nums1[k]=nums1[i];
+            i--;
+        }
+        k--;
+    }
+      while(j>=0)
+      {
+          nums1[k]=nums2[j];
+          j--;
+          k--;
+      }
+    }
+   
+   APPROACH 3:
+   ->move all the elements of 2nd array to 1st array
+   ->then sort the 1st array
+   
+   CODE:
+  void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int i=m,j=0;
+        while(i!=m+n)
+        {
+            nums1[i]=nums2[j];
+            i++;
+            j++;
+        }
+       sort(nums1.begin(),nums1.end());
+    }
+    
