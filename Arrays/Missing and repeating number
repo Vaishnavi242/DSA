@@ -1,0 +1,71 @@
+You are given a read only array of n integers from 1 to n.
+Each integer appears exactly once except A which appears twice and B which is missing.
+Return A and B..
+
+Example:
+Input:[3 1 2 5 3] 
+Output:[3, 4] 
+A = 3, B = 4
+
+APPROACH:
+Since the numbers are from 1 to N in the array arr[]
+
+->Take a substitute array of size N+1 and initalize it with 0.
+->Traverse the given array and increase the value of substitute[arr[i]] by one .
+->Then again traverse the substitute array starting from index 1 to N.
+->If you find any index value greater than 1 that is repeating element A.
+->If you find any index value = 0 then that is the missing element B.
+
+CODE:
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+	// Write your code here
+    pair<int,int> p;
+    vector<int> v(n+1,0);
+    for(int i=0;i<n;i++)
+    {
+       v[arr[i]]++;
+    }
+    for(int i=1;i<n+1;i++)
+    {
+        if(v[i]==0)
+        {
+            p.first=i;
+         }
+        if(v[i]>1)
+        {
+            p.second=i;
+        }
+    }
+    return p;
+}
+APPROACH 2:
+->let the misiing number be x and repeating number be y;
+->find the sum of all elements and sum of squares of all elements from 1 to n
+->let them be s and sq respectively
+->find the sum of all array elements and sum of squares of all array elements
+->let them be s1 and sq1 respectively
+->we get x-y=s-s1
+->x2-y2=sq-sq1
+->x+y=(x2-y2)/x-y
+->solve for x and y
+Code:
+
+pair<int,int> missingAndRepeating(vector<int> &arr, int n)
+{
+    pair<int,int> p;
+    int s=0,sq=0,s1=0,sq1=0;
+    for(int i=0;i<n;i++)
+    {
+        s+=i+1;
+        sq+=((i+1)*(i+1));
+        s1+=arr[i];
+        sq1+=(arr[i]*arr[i]);
+    }
+    int val=s-s1;
+    int val1=sq-sq1;
+    int val2=val1/val;
+    p.first=(val+val2)/2;
+    p.second=(val2-val)/2;
+    return p;
+}
