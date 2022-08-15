@@ -1,0 +1,31 @@
+Given an array of N integers, count the inversion of the array 
+
+Input Format: N = 5, array[] = {1,2,3,4,5}
+Result: 0
+Explanation: we have a sorted array and the sorted array 
+has 0 inversions as for i < j you will never find a pair 
+such that A[j] < A[i]. More clear example: 2 has index 1 
+and 5 has index 4 now 1 < 5 but 2 < 5 so this is not an 
+inversion.
+
+CODE:
+long long getInversions(long long *arr, int n){
+    long long int count=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            if(arr[i]>arr[j])
+                count++;
+        }
+    }
+    return count;
+}
+
+APPROACH: using merge sort
+->In mergeSort, we will deep in one element, compare two elements, and put it in a new array in sorted order. By doing this for log(N) time, 
+we will get the sorted array, and while comparing the two array elements, 
+we will add some more lines of code such that it will count the inversion of the smaller array and slowly it will count for larger and larger array.
+->Compare elements in 1st array with the 2nd array’s all elements if 1’s array’s element is greater than 2’s array then we will count it as inversion pair 
+
+CODE:
