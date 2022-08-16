@@ -1,0 +1,29 @@
+APPROACH:
+->find all the permutations of the given number and then find the next permutation.
+CODE:
+vector<int> nextPermutation(vector<int> &permutation, int n)
+{
+    int index=-1;
+    for(int i=n-2;i>=0;i--)
+    {
+        if(permutation[i]<permutation[i+1])
+        {
+            index=i;
+            break;
+        }  
+    }
+    if(index==-1)
+    {
+        sort(permutation.begin(),permutation.end());
+        return permutation;}
+    for(int j=n-1;j>=0;j--)
+    {
+        if(permutation[j]>permutation[index])
+        {
+            swap(permutation[j],permutation[index]);
+            break;
+        }
+    }
+    sort(permutation.begin()+index+1,permutation.end());
+    return permutation;
+}
